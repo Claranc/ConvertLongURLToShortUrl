@@ -1,0 +1,20 @@
+<html>
+<title>长转短</title>
+<body>
+<h1  style="text-align:center">
+    长网址转短网址系统
+</h1>
+<h2>功能1：长网址转短网址</h2>
+<form name="input" action="/" method="post">
+    长网址: <input type="text" name="longurl" style="width:600px; height:30px;">
+    <input type="submit" value="Submit">
+</form>
+<p>短网址：{{.output}}</p>
+<h2>功能2：短网址查询原长网址</h2>
+<form name="input" action="/" method="post">
+    短网址: <input type="text" name="shorturl" style="width:300px; height:30px;">
+    <input type="submit" value="Submit">
+</form>
+长网址：<a href={{.longurl}}>{{.output2}}</a>
+</body>
+</html>
