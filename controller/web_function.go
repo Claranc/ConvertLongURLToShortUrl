@@ -2,7 +2,7 @@ package controller
 
 import (
 	"../dataStore/mapstore"
-	"../dataStore/mysql"
+	"../dataStore/Mysql"
 	"../model"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -44,7 +44,7 @@ func DeleteAll(c *gin.Context) {
 		mapstore.DeleteFile()
 		c.String(200, "OK")
 	} else if Method == 2 {
-		mysql.DeleteAll()
+		Mysql.DeleteAll()
 		count = 0
 		num = 19960117
 		c.String(200, "OK")
@@ -101,12 +101,12 @@ func HandlePost(c *gin.Context) {
 			valid := CheckValidOfLongUrl(longurl)
 			if valid {
 				if len(longurl) > 15 {
-					mysql.ConnectToMysql()
-					shorturl,ok := mysql.FindShortUrl(longurl)
+					Mysql.ConnectToMysql()
+					shorturl,ok := Mysql.FindShortUrl(longurl)
 					if ok == false {
 						str := convertLongToShort(string(longurl))
 						shorturl = fmt.Sprintf("http://fengxinjie.club:8080/f" + str)
-						mysql.InsertValue(shorturl,longurl)
+						Mysql.InsertValue(shorturl,longurl)
 					}
 					c.HTML(http.StatusOK, "run.html", gin.H{
 						"output": shorturl,
@@ -125,7 +125,7 @@ func HandlePost(c *gin.Context) {
 			}
 		} else {
 			shorturl := c.PostForm("shorturl")
-			longurl, ok := mysql.FindLongUrl(shorturl)
+			longurl, ok := Mysql.FindLongUrl(shorturl)
 			if ok == false {
 				c.HTML(http.StatusOK, "Longnotexist.html", gin.H{
 					"output": "查询不到该短网址的信息呢",
@@ -151,8 +151,8 @@ func Print(c *gin.Context) {
 		}
 		c.Redirect(302, longurl)
 	case 2:
-		mysql.ConnectToMysql()
-		longurl,OK := mysql.FindLongUrl(shorturl)
+		Mysql.ConnectToMysql()
+		longurl,OK := Mysql.FindLongUrl(shorturl)
 		if OK == false {
 			c.String(200, "长网址不存在")
 		}

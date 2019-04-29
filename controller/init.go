@@ -2,19 +2,19 @@ package controller
 
 import (
 	"../dataStore/mapstore"
-	"LongShortUrlConvert/dataStore/mysql"
+	"LongShortUrlConvert/dataStore/Mysql"
 	"github.com/gin-gonic/gin"
 	"log"
 )
 
 func ConnectToMysql() {
 	var err error
-	mysql.Db, err = mysql.ConnectToMysql()
+	Mysql.Db, err = Mysql.ConnectToMysql()
 	if err != nil {
 		log.Fatal("cannot connect to mysql")
 	}
 	log.Println("connect to mysql success")
-	count = mysql.CountNum()
+	count = Mysql.CountNum()
 }
 
 

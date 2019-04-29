@@ -1,4 +1,4 @@
-package mysql
+package Mysql
 
 import (
 	"LongShortUrlConvert/model"
