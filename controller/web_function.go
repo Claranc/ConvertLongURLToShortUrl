@@ -15,7 +15,7 @@ func HandleGet(c *gin.Context) {
 	})
 }
 
-//返回存储的列表
+//返回存储的列表，针对amdin用户
 func GetAll(c *gin.Context) {
 	var resLToS string
 	var resSToL string
@@ -30,7 +30,7 @@ func GetAll(c *gin.Context) {
 	c.String(200, "%s \n\n\n%s", resLToS, resSToL)
 }
 
-//清空数据
+//清空数据，针对admin用户
 func DeleteAll(c *gin.Context) {
 	if Method == 1 {
 		model.LongToShort.Range(func(k, v interface{}) bool {
@@ -51,7 +51,7 @@ func DeleteAll(c *gin.Context) {
 	}
 }
 
-//POST
+//POST   处理输入的短网址和长网址
 func HandlePost(c *gin.Context) {
 	longurl := c.PostForm("longurl")
 	if Method == 1 {
@@ -140,7 +140,9 @@ func HandlePost(c *gin.Context) {
 	}
 }
 
-func Print(c *gin.Context) {
+
+//浏览器输入短网址，将短网址重定向到长网址
+func JumpToLongURL(c *gin.Context) {
 	str := c.Param("scz")
 	shorturl := "http://fengxinjie.club:8080/f"+str
 	switch Method {

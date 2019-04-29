@@ -3,24 +3,25 @@ package controller
 import (
 	"../dataStore/mapstore"
 	"../model"
-	"fmt"
 	"log"
 	"strings"
 	"sync"
 )
 
+
+//将长网址处理成短网址的函数
 func convertLongToShort(longurl string) string {
 	if res,err := mapstore.Read(longurl,&model.LongToShort); err == nil {
 		return res
 	}
 	mu.Lock()
-	fmt.Println("process num = ", num)
 	output := convertTenToOtherJinzhi(num+count, jinzhi)
 	num++
 	mu.Unlock()
 	return output
 }
 
+//十进制数转n进制数的函数
 func convertTenToOtherJinzhi(num int, jinzhi int) string {
 	if num < 0 {
 		log.Fatal("wrong input")

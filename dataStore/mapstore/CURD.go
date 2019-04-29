@@ -53,7 +53,7 @@ func LoadFromFile() {
 			Create(str[1], str[0], &model.LongToShort)
 		}
 	}
-	model.Num += count
+	Num += count
 	defer func() {
 		s2l.Close()
 	}()
